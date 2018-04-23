@@ -7,5 +7,5 @@ http://1339.juancgonzalez.com
 
 Éste es el resultado del taller "Visualización de datos con animación" impartido en la Ciudad de México entre el 29 de Noviembre a 1ro de Diciembre de 2017, en el marco del festival [Animasivo](https://www.animasivo.net) bajo la consigna “Imaginar es Resistir”.
 
-![1339](./img/MilTrescientosTreintaYNueve.jpg)
+[![1339](./img/MilTrescientosTreintaYNueve.jpg)](http://1339.juancgonzalez.com)
 
