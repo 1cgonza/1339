@@ -41,7 +41,7 @@ function reloadStage(w, h) {
   h = h | window.innerHeight;
   window.cancelAnimationFrame(animReq);
   stage.w = log.canvas.width = stage.canvas.width = off.canvas.width = w;
-  stage.h = log.canvas.height = stage.canvas.height = off.canvas.width = h;
+  stage.h = log.canvas.height = stage.canvas.height = off.canvas.height = h;
   off.center.x = (w / 2) | 0;
   off.center.y = (h / 2) | 0;
   map.reload(w, h);
@@ -61,6 +61,9 @@ function reloadStage(w, h) {
   map.holes = [];
 
   init();
+  if (!about.classList.contains('active')) {
+    play = true;
+  }
 }
 
 function fetchData() {
@@ -167,7 +170,6 @@ function animate() {
           data[i + 2] = 255 - data[i + 2]; // blue
         }
         stage.ctx.putImageData(imgData, 0, 0);
-        console.log(bodies, dataI, d);
       }
       tick++;
     } else {
