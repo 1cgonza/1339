@@ -9,7 +9,7 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background-color: black;
+  background-color: rgb(255, 255, 255);
 }
 
 body {
@@ -48,6 +48,7 @@ h2 {
 h1 {
   letter-spacing: 13px;
   font-size: 3em;
+  padding-bottom: 1em;
 }
 
 h2 {
@@ -58,6 +59,7 @@ h2 {
 
 p {
   line-height: 2;
+  margin: 1em 0;
 }
 
 canvas {
@@ -81,7 +83,7 @@ canvas {
   background-repeat: no-repeat;
   background-size: contain;
   &:hover {
-    opacity: .5;
+    opacity: 0.5;
   }
 }
 
@@ -96,7 +98,7 @@ $tr: 45deg;
   .line {
     width: 20px;
     height: 3px;
-    background-color: #ecf0f1;
+    background-color: #5b5f5f;
     display: block;
     margin: 2px auto;
     -webkit-transition: all 0.3s ease-in-out;
@@ -135,18 +137,12 @@ $tr: 45deg;
   -webkit-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
-  opacity: .90;
+  opacity: 0.9;
   padding: 3em;
   &.hidden {
     opacity: 0;
     transform: translateY(-100%);
   }
-}
-
-#filters {
-  z-index: 9999;
-  color: whitesmoke;
-  position: absolute;
 }
 
 ul {
@@ -164,9 +160,7 @@ ul {
 }
 
 .description {
-  padding: 3em 0;
   margin: 0 auto;
-  text-align: center;
 }
 
 .participants {
@@ -252,40 +246,5 @@ ul.share-buttons .sr-only {
   }
   ul.share-buttons li {
     display: block;
-  }
-}
-
-input[type="checkbox"] {
-  display: none !important; // Off
-  &:not(:checked) {
-    +span {
-      background: black;
-      color: #CCC;
-      padding-left: 1.6em;
-      padding-right: 0.4em;
-      &:before {
-        content: attr(data-off);
-        color: #CCC;
-      }
-      &:after {
-        background: rgb(109, 25, 25);
-        left: 1.6em;
-      }
-    }
-  } // On
-  &:checked {
-    +span {
-      background: green;
-      color: white;
-      padding-left: 0.4em;
-      padding-right: 1.6em;
-      &:before {
-        content: attr(data-on);
-      }
-      &:after {
-        background: red;
-        left: 100%;
-      }
-    }
   }
 }
