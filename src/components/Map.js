@@ -4,7 +4,6 @@ export default class Map {
   constructor(container) {
     this.data = [];
     this.holes = [];
-    this.loaded = false;
     this.base = DDD.canvas(container);
     this.stage = DDD.canvas(container);
     this.managerOptions = {
@@ -23,7 +22,6 @@ export default class Map {
     this.stage.ctx.fillRect(0, 0, this.stage.w, this.stage.h);
     this.base.ctx.globalCompositeOperation = 'lighten';
     this.base.ctx.fillStyle = '#0d0d0d';
-    //this.stage.ctx.fillStyle = '#fff';
   }
 
   reload(w, h) {
