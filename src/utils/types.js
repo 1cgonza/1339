@@ -1,0 +1,22 @@
+export const types = {
+  'Física/Material': '',
+  'Amenaza': 'cuchillo',
+  'Intimidación': 'ojo',
+  'Ataque físico o material': 'golpe',
+  'Privación de la libertad': 'jaula',
+  'Hostigamiento': 'bomba',
+  'Ataque a medio de comunicación': '',
+  'Detención arbitraria': 'jaula',
+  'Violencia Institucional': 'mano',
+  'Detención ilegal': 'jaula',
+  'Asesinato': 'mosca',
+  'Ataque cibernético': '',
+  'Acción legal/calumnia/difamación': '',
+  'Intrusión no autorizada': '',
+  'Intervención de comunicaciones': '',
+  'Robo': 'golpe',
+  'Desplazamiento': 'caida',
+  'Desaparición': 'caida',
+  'Censura': '',
+  'Criminalización': ''
+};
