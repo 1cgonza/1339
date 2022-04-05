@@ -1,6 +1,6 @@
 # Mil Trescientos Treinta y Nueve
 
-http://1339.juancgonzalez.com
+https://1339.juancgonzalez.com
 
 **“Mil trescientos treinta y nueve”** es una representación de datos animada que documenta los 1339 casos de violencia contra periodistas que se registraron entre Diciembre de 2012 y Diciembre de 2016 en México.
 
