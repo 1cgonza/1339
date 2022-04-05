@@ -1,5 +1,5 @@
 import './scss/main.scss';
-import './js/ddd.min.js';
+import { canvas } from 'dddrawings';
 import Map from './components/Map';
 import SpriteManager from './components/Sprite';
 import { imgs } from './components/images';
@@ -10,9 +10,9 @@ const TWOPI = Math.PI * 2;
 /*----------  STAGE  ----------*/
 let container = document.getElementById('stage');
 let map = new Map(container);
-let stage = DDD.canvas(container);
-let log = DDD.canvas(container);
-let off = DDD.canvas();
+let stage = canvas(container);
+let log = canvas(container);
+let off = canvas();
 log.canvas.id = 'log';
 
 /*----------  DATA  ----------*/
@@ -46,11 +46,8 @@ function reloadStage(w, h) {
   off.center.y = (h / 2) | 0;
   map.reload(w, h);
 
-  d.forEach(event => {
-    event.coords = map.manager.convertCoordinates(
-      event.place.lon,
-      event.place.lat
-    );
+  d.forEach((event) => {
+    event.coords = map.manager.convertCoordinates(event.place.lon, event.place.lat);
   });
 
   dataI = 0;
@@ -97,7 +94,7 @@ function init() {
 
 function checkAssetsLoaded() {
   if (sprites.counter === imgs.length) {
-    d.forEach(event => {
+    d.forEach((event) => {
       if (event.hasOwnProperty('type')) {
         let spriteKey = types[event.type] || 'bomba';
 
@@ -105,10 +102,7 @@ function checkAssetsLoaded() {
         event.time = new Date(event.Fecha.human).getTime();
       }
 
-      event.coords = map.manager.convertCoordinates(
-        event.place.lon,
-        event.place.lat
-      );
+      event.coords = map.manager.convertCoordinates(event.place.lon, event.place.lat);
     });
 
     init();
@@ -155,7 +149,7 @@ function animate() {
             timezone: 'America/Mexico_City',
             day: 'numeric',
             month: 'numeric',
-            year: 'numeric'
+            year: 'numeric',
           }).format(currentDate),
           90,
           300
@@ -173,7 +167,7 @@ function animate() {
       }
       tick++;
     } else {
-      bodies = bodies.filter(body => !body.finished);
+      bodies = bodies.filter((body) => !body.finished);
       dataI = 0;
       currentDate = dateInit;
     }
@@ -201,7 +195,7 @@ function draw(i, add) {
     ctx.restore();
     ctx.drawImage(map.stage.canvas, 0, 0);
 
-    bodies.forEach(body => {
+    bodies.forEach((body) => {
       if (!body.finished) {
         body.draw();
       }
@@ -215,7 +209,7 @@ let resizeTimer;
 
 window.addEventListener(
   'resize',
-  e => {
+  (e) => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
       reloadStage(window.innerWidth, window.innerHeight);
