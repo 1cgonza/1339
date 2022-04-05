@@ -10,6 +10,7 @@ module.exports = {
     filename: '[name].[fullhash].js',
     chunkFilename: '[name].[fullhash].js',
     path: path.resolve(__dirname, 'publico'),
+    assetModuleFilename: '[name][ext][query]',
   },
   module: {
     rules: [
