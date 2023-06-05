@@ -1,5 +1,4 @@
 import './scss/main.scss';
-import { canvas } from 'dddrawings';
 import Map from './components/Map';
 import SpriteManager from './components/Sprite';
 import { imgs } from './components/images';
@@ -16,10 +15,9 @@ const off = document.createElement('canvas');
 const offCtx = off.getContext('2d', { willReadFrequently: true });
 const log = document.createElement('canvas');
 const logCtx = log.getContext('2d');
-// let log = canvas(container);
 const dims = { w: 0, h: 0 };
 const centro = { x: 0, y: 0 };
-// log.canvas.id = 'log';
+
 lienzo.id = 'lienzo';
 log.id = 'log';
 container.appendChild(lienzo);
