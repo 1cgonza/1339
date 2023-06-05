@@ -10,11 +10,20 @@ const TWOPI = Math.PI * 2;
 /*----------  STAGE  ----------*/
 let container = document.getElementById('stage');
 let map = new Map(container);
-let stage = canvas(container);
-let log = canvas(container);
-let off = canvas();
-log.canvas.id = 'log';
-
+const lienzo = document.createElement('canvas');
+const lienzoCtx = lienzo.getContext('2d');
+const off = document.createElement('canvas');
+const offCtx = off.getContext('2d', { willReadFrequently: true });
+const log = document.createElement('canvas');
+const logCtx = log.getContext('2d');
+// let log = canvas(container);
+const dims = { w: 0, h: 0 };
+const centro = { x: 0, y: 0 };
+// log.canvas.id = 'log';
+lienzo.id = 'lienzo';
+log.id = 'log';
+container.appendChild(lienzo);
+container.appendChild(log);
 /*----------  DATA  ----------*/
 let bodies = [];
 let d = [];
@@ -40,10 +49,11 @@ function reloadStage(w, h) {
   w = w | window.innerWidth;
   h = h | window.innerHeight;
   window.cancelAnimationFrame(animReq);
-  stage.w = log.canvas.width = stage.canvas.width = off.canvas.width = w;
-  stage.h = log.canvas.height = stage.canvas.height = off.canvas.height = h;
-  off.center.x = (w / 2) | 0;
-  off.center.y = (h / 2) | 0;
+  dims.w = log.width = lienzo.width = off.width = w;
+  dims.h = log.height = lienzo.height = off.height = h;
+
+  centro.x = (w / 2) | 0;
+  centro.y = (h / 2) | 0;
   map.reload(w, h);
 
   d.forEach((event) => {
@@ -77,11 +87,11 @@ function fetchData() {
 
 function init() {
   let days = Math.round((dateEnd - dateInit) / (1000 * 60 * 60 * 24));
-  dStep = (off.h - 32) / days;
+  dStep = (dims.h - 32) / days;
   rStep = TWOPI / days;
 
-  off.ctx.globalCompositeOperation = 'lighten';
-  log.ctx.font = '12px News Cycle';
+  offCtx.globalCompositeOperation = 'lighten';
+  logCtx.font = '12px News Cycle';
 
   map.init();
   map.drawBase();
@@ -104,7 +114,7 @@ function checkAssetsLoaded() {
 
       event.coords = map.manager.convertCoordinates(event.place.lon, event.place.lat);
     });
-
+    reloadStage();
     init();
   } else {
     requestAnimationFrame(checkAssetsLoaded);
@@ -115,7 +125,7 @@ function animate() {
   if (play) {
     if (dataI < d.length - 1) {
       if (tick === hold) {
-        let ctx = log.ctx;
+        const ctx = logCtx;
         draw(dataI, add);
         tick = 0;
 
@@ -128,7 +138,7 @@ function animate() {
           add = false;
         }
 
-        ctx.clearRect(0, 0, log.canvas.width, log.canvas.height);
+        ctx.clearRect(0, 0, log.width, log.height);
         ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
         for (let i = 0; i < yTick; i++) {
           let r = 3 - i / 800;
@@ -155,7 +165,7 @@ function animate() {
           300
         );
 
-        let imgData = off.ctx.getImageData(0, 0, stage.w, stage.h);
+        let imgData = offCtx.getImageData(0, 0, dims.w, dims.h);
         let data = imgData.data;
 
         for (let i = 0; i < data.length; i += 4) {
@@ -163,7 +173,7 @@ function animate() {
           data[i + 1] = 255 - data[i + 1]; // green
           data[i + 2] = 255 - data[i + 2]; // blue
         }
-        stage.ctx.putImageData(imgData, 0, 0);
+        lienzoCtx.putImageData(imgData, 0, 0);
       }
       tick++;
     } else {
@@ -178,11 +188,11 @@ function animate() {
 
 function draw(i, add) {
   let e = d[i];
-  let ctx = off.ctx;
+  let ctx = offCtx;
 
   if (add) {
     map.addHole(e.coords);
-    bodies.push(new Levit(e.coords, e.sprite, off));
+    bodies.push(new Levit(e.coords, e.sprite, off, offCtx));
   }
 
   map.draw();
@@ -191,13 +201,13 @@ function draw(i, add) {
     ctx.save();
     ctx.globalCompositeOperation = 'source-over';
     ctx.fillStyle = 'rgba(0, 0, 0, .7)';
-    ctx.fillRect(0, 0, off.w, off.h);
+    ctx.fillRect(0, 0, dims.w, dims.h);
     ctx.restore();
     ctx.drawImage(map.stage.canvas, 0, 0);
 
     bodies.forEach((body) => {
       if (!body.finished) {
-        body.draw();
+        body.draw(centro);
       }
     });
   }
@@ -209,7 +219,7 @@ let resizeTimer;
 
 window.addEventListener(
   'resize',
-  (e) => {
+  () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
       reloadStage(window.innerWidth, window.innerHeight);

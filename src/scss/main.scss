@@ -65,6 +65,10 @@ p {
 canvas {
   display: inline-block;
   vertical-align: top;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9;
 }
 
 #about,
